@@ -1,9 +1,9 @@
-ARG MAJOR_PHP_VERSION=8.0
+ARG MAJOR_PHP_VERSION=8.2
 
 FROM php:${MAJOR_PHP_VERSION}-fpm-buster
 
 ARG MAJOR_PHP_VERSION
-ARG NGINX_VERSION=1.20~buster
+ARG NGINX_VERSION=1.25~buster
 
 LABEL maintainer="Aaron HS (asiraky@gmail.com)"
 
@@ -19,7 +19,7 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends \
         curl gcc make autoconf libc-dev zlib1g-dev libicu-dev g++ pkg-config gnupg2 dirmngr wget apt-transport-https lsb-release ca-certificates \
         python-pip python-setuptools git default-mysql-client libmemcached-dev libz-dev libpq-dev libjpeg-dev libpng-dev libfreetype6-dev \
-        libssl-dev libwebp-dev libmcrypt-dev libonig-dev libxrender1 libxext6 librdkafka-dev openssh-server nginx
+        libssl-dev libwebp-dev libmcrypt-dev libonig-dev libxrender1 libxext6 librdkafka-dev openssh-server nginx libmagickwand-dev
 
 RUN set -eux; \
     # install php pdo_mysql extention
@@ -49,6 +49,8 @@ RUN set -eux; \
 RUN set -xe; \
     apt-get update -yqq && \
     pecl channel-update pecl.php.net && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick && \
     apt-get install -yqq \
     apt-utils \
     libzip-dev zip unzip && \
