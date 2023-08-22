@@ -28,4 +28,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: aaronhs/laravel-docker:php8.0
+          tags: aaronhs/laravel-docker:php8.2
