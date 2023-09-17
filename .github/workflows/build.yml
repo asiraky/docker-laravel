@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  docker:
+  php_fpm:
     runs-on: ubuntu-latest
     environment: Production
     
@@ -29,4 +29,28 @@ jobs:
         with:
           file: php-fpm/8.2/Dockerfile
           push: true
-          tags: aaronhs/laravel-docker:php-fpm8.2
+          tags: aaronhs/laravel-php-fpm:8.2
+  nginx:
+    runs-on: ubuntu-latest
+    environment: Production
+    
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: nginx/Dockerfile
+          push: true
+          tags: aaronhs/laravel-nginx
