@@ -27,5 +27,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
+          file: php-fpm/8.2/Dockerfile
           push: true
-          tags: aaronhs/laravel-docker:php8.2
+          tags: aaronhs/laravel-docker:php-fpm8.2
