@@ -33,17 +33,21 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm /var/log/lastlog /var/log/faillog
 
+RUN rm -rf /var/www/html
+
+WORKDIR /var/www
+
 # copy over laravel specific php ini
-COPY laravel.ini /usr/local/etc/php/conf.d/1-laravel.ini
+COPY php-fpm/laravel.ini /usr/local/etc/php/conf.d/laravel.ini
 
 # copy over production php configuration
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 # copy over opcache configration
-COPY opcache.ini /usr/local/etc/php/conf.d/1-opcache.ini
+COPY php-fpm/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # copy over supervisord configuration
-ADD supervisord.conf /etc/supervisor/supervisord.conf
+ADD php-fpm/supervisord.conf /etc/supervisor/supervisord.conf
 
 # start supervisord
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
