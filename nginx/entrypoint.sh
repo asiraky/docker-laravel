@@ -13,7 +13,6 @@ server {
     root /var/www/public;
     index index.php index.html index.htm;
 
-    access_log off;
     client_max_body_size $CLIENT_MAX_BODY_SIZE;
 
     location / {
