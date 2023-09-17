@@ -30,6 +30,9 @@ server {
     }
 
     location ~ /\.ht    { deny all; }
+
+    # this include block allows adding extra config into this server block
+    inlude /etc/nginx/server.d/*.conf;
 }
 EOF
 

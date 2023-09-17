@@ -12,6 +12,8 @@ RUN rm -rf /etc/nginx/sites-available/default
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
+RUN mkdir /etc/nginx/server.d
+
 WORKDIR /var/www
 
 EXPOSE 80
