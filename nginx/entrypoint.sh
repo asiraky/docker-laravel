@@ -29,7 +29,9 @@ server {
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 
-    location ~ /\.ht    { deny all; }
+    location ~ /\.ht { 
+        deny all; 
+    }
 
     # this include block allows adding extra config into this server block
     inlude /etc/nginx/server.d/*.conf;
