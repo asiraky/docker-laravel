@@ -11,15 +11,17 @@ RUN set -eux; \
         openssh-server libmagickwand-dev apt-utils libzip-dev zip unzip nano iputils-ping supervisor
 
 # install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install pdo_mysql pdo_pgsql pcntl zip mbstring exif pcntl bcmath -j$(nproc) gd intl
+RUN docker-php-ext-configure gd --prefix=/usr --with-freetype --with-jpeg --with-webp
+RUN docker-php-ext-install pdo_mysql pdo_pgsql opcache pcntl zip mbstring exif pcntl bcmath -j$(nproc) gd intl
 
 RUN pecl install redis && docker-php-ext-enable redis
 
 # install the php memcached extension
 RUN pecl install memcached && docker-php-ext-enable memcached
 
-RUN pecl channel-update pecl.php.net
+RUN pecl channel-update pecl.php.net && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
