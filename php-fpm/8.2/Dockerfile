@@ -51,5 +51,8 @@ COPY php-fpm/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 # copy over supervisord configuration
 ADD php-fpm/supervisord.conf /etc/supervisor/supervisord.conf
 
+# copy over php-pfm configuration
+ADD php-fpm/docker.conf /usr/local/etc/php-fpm.d/zzz-docker.conf
+
 # start supervisord
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
