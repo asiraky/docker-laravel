@@ -10,7 +10,7 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    root /var/www/apps/api/public;
+    root /var/www/public;
     index index.php index.html index.htm;
 
     client_max_body_size $CLIENT_MAX_BODY_SIZE;
